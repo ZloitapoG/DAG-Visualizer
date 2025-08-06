@@ -13,12 +13,13 @@ import {
 import '@xyflow/react/dist/style.css';
 import axios from 'axios';
 import './App.css';
+import * as htmlToImage from 'html-to-image';
 
 // Кастомный компонент для петлевых ребер
 const LoopEdge = ({ id, sourceX, sourceY, markerEnd }) => {
   const radius = 20;
   const offset = 20;
-  
+
   // Петля сбоку узла (справа)
   const path = `M ${sourceX},${sourceY - 5}
                L ${sourceX},${sourceY - radius}
@@ -30,7 +31,7 @@ const LoopEdge = ({ id, sourceX, sourceY, markerEnd }) => {
       id={id}
       d={path}
       markerEnd={markerEnd}
-      style={{ 
+      style={{
         strokeWidth: 2,
         stroke: '#555',
         fill: 'none',
@@ -67,14 +68,23 @@ function FlowComponent() {
         color: '#555',
         orient: 'auto'
       },
-        style: {
-          strokeWidth: 2,
-          stroke: '#555'
-        }
+      style: {
+        strokeWidth: 2,
+        stroke: '#555'
+      }
     }, eds)),
     []
   );
-
+  const exportToPNG = () => {
+    const flowElement = document.querySelector('.react-flow');
+    htmlToImage.toPng(flowElement)
+      .then(dataUrl => {
+        const link = document.createElement('a');
+        link.download = 'dag-export.png';
+        link.href = dataUrl;
+        link.click();
+      });
+  };
   // Загрузка графа из graph.json
   useEffect(() => {
     const fetchGraphData = async () => {
@@ -133,7 +143,6 @@ function FlowComponent() {
         setEdges([]);
       }
     };
-
     fetchGraphData();
   }, []);
 
@@ -145,6 +154,12 @@ function FlowComponent() {
 
   return (
     <div style={{ height: '100vh', width: '100vw' }} ref={flowRef}>
+      <button
+        onClick={exportToPNG}
+        style={{ position: 'absolute', top: 50, left: 10, zIndex: 100 }}
+      >
+        Export PNG
+      </button>
       <ReactFlow
         nodes={nodes}
         edges={edges}
