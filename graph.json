@@ -1,0 +1,1 @@
+{"nodes":[{"id":"3","label":"Node 3"},{"id":"1","label":"Node 1"}],"edges":[{"from":"3","to":"3"},{"from":"1","to":"3"},{"from":"3","to":"1"}]}

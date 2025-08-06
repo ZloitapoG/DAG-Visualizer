@@ -1,0 +1,22 @@
+{
+  "name": "visiodag",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "@xyflow/react": "^12.8.2",
+    "axios": "^1.11.0",
+    "http-proxy-middleware": "^3.0.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "^5.0.1",
+    "zustand": "^5.0.7"
+  }
+}
